@@ -12,6 +12,7 @@
 #include "SDL2/SDL_opengl.h"
 
 #include "shader.h"
+#include "uniform.h"
 #include <unordered_map>
 #include <regex>
 
@@ -28,12 +29,10 @@ namespace shaderUtils {
         const GLuint programRef = glCreateProgram();
 
         std::vector <shader> shader_list;
-        std::unordered_map <std::string, GLint> uniform_list;
+
+        std::unordered_map <std::string, shaderUtils::uniform> uniform_list;
 
         static std::regex uniformFinder;
-
-        void set_uniform1f(std::string, GLfloat);
-        void set_uniform2f(std::string, GLfloat);
     };
 }
 

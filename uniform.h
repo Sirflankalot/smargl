@@ -7,17 +7,18 @@
 
 #include "shaderProgram.h"
 
+#include <memory>
 #include <stdexcept>
 
 namespace shaderUtils {
 
     // Factory method to make uniforms
     // TODO Implement (also, the return type shouldn't be void)
-    void make_uniform(const shaderProgram &, std::string, std::string) {};
+    //void make_uniform(const shaderProgram &, std::string, std::string) {};
 
     class uniform {
     public:
-        uniform(const shaderProgram &, std::string &);
+        uniform(const GLuint &, std::string &);
 
         ~uniform();
 
@@ -73,23 +74,23 @@ namespace shaderUtils {
 
         virtual void set4uiv(GLsizei &, const GLuint *) { err(); };
 
-        virtual void setMatrix2fv(GLsizei &, GLboolean &, const GLfloat *) { err(); };
+        virtual void setMatrix2(GLsizei &, GLboolean &, const GLfloat *) { err(); };
 
-        virtual void setMatrix3fv(GLsizei &, GLboolean &, const GLfloat *) { err(); };
+        virtual void setMatrix3(GLsizei &, GLboolean &, const GLfloat *) { err(); };
 
-        virtual void setMatrix4fv(GLsizei &, GLboolean &, const GLfloat *) { err(); };
+        virtual void setMatrix4(GLsizei &, GLboolean &, const GLfloat *) { err(); };
 
-        virtual void setMatrix2x3fv(GLsizei &, GLboolean &, const GLfloat *) { err(); };
+        virtual void setMatrix2x3(GLsizei &, GLboolean &, const GLfloat *) { err(); };
 
-        virtual void setMatrix3x2fv(GLsizei &, GLboolean &, const GLfloat *) { err(); };
+        virtual void setMatrix3x2(GLsizei &, GLboolean &, const GLfloat *) { err(); };
 
-        virtual void setMatrix2x4fv(GLsizei &, GLboolean &, const GLfloat *) { err(); };
+        virtual void setMatrix2x4(GLsizei &, GLboolean &, const GLfloat *) { err(); };
 
-        virtual void setMatrix4x2fv(GLsizei &, GLboolean &, const GLfloat *) { err(); };
+        virtual void setMatrix4x2(GLsizei &, GLboolean &, const GLfloat *) { err(); };
 
-        virtual void setMatrix3x4fv(GLsizei &, GLboolean &, const GLfloat *) { err(); };
+        virtual void setMatrix3x4(GLsizei &, GLboolean &, const GLfloat *) { err(); };
 
-        virtual void setMatrix4x3fv(GLsizei &, GLboolean &, const GLfloat *) { err(); };
+        virtual void setMatrix4x3(GLsizei &, GLboolean &, const GLfloat *) { err(); };
 
         void err() {
             // TODO Should this be inline?
@@ -97,179 +98,213 @@ namespace shaderUtils {
         }
     };
 
+    uniform make_uniform(const GLuint &, std::string, std::string);
+
     // And now onto the classses...
 
     class uniform1f : public uniform {
     public:
-        uniform1f(const shaderProgram & prog, std::string & name)
+        uniform1f(const GLuint & prog, std::string & name)
                 : uniform (prog, name) {};
         void set1f(GLfloat &);
     };
-    class uniform2f : uniform {
-        uniform2f(const shaderProgram & prog, std::string & name)
+    class uniform2f : public uniform {
+    public:
+        uniform2f(const GLuint & prog, std::string & name)
                 : uniform (prog, name) {};
         void set2f(GLfloat &, GLfloat &);
     };
-    class uniform3f : uniform {
-        uniform3f(const shaderProgram & prog, std::string & name)
+    class uniform3f : public uniform {
+    public:
+        uniform3f(const GLuint & prog, std::string & name)
                 : uniform (prog, name) {};
         void set3f(GLfloat &, GLfloat &, GLfloat &);
     };
-    class uniform4f : uniform {
-        uniform4f(const shaderProgram & prog, std::string & name)
+    class uniform4f : public uniform {
+    public:
+        uniform4f(const GLuint & prog, std::string & name)
                 : uniform (prog, name) {};
         void set4f(GLfloat &, GLfloat &, GLfloat &, GLfloat &);
     };
 
-    class uniform1i : uniform {
-        uniform1i(const shaderProgram & prog, std::string & name)
+    class uniform1i : public uniform {
+    public:
+        uniform1i(const GLuint & prog, std::string & name)
                 : uniform (prog, name) {};
         void set1i(GLint &);
     };
-    class uniform2i : uniform {
-        uniform2i(const shaderProgram & prog, std::string & name)
+    class uniform2i : public uniform {
+    public:
+        uniform2i(const GLuint & prog, std::string & name)
                 : uniform (prog, name) {};
         void set2i(GLint &, GLint &);
     };
-    class uniform3i : uniform {
-        uniform3i(const shaderProgram & prog, std::string & name)
+    class uniform3i : public uniform {
+    public:
+        uniform3i(const GLuint & prog, std::string & name)
                 : uniform (prog, name) {};
         void set3i(GLint &, GLint &, GLint &);
     };
-    class uniform4i : uniform {
-        uniform4i(const shaderProgram & prog, std::string & name)
+    class uniform4i : public uniform {
+    public:
+        uniform4i(const GLuint & prog, std::string & name)
                 : uniform (prog, name) {};
         void set4i(GLint &, GLint &, GLint &, GLint &);
     };
 
-    class uniform1ui : uniform {
-        uniform1ui(const shaderProgram & prog, std::string & name)
+    class uniform1ui : public uniform {
+    public:
+        uniform1ui(const GLuint & prog, std::string & name)
                 : uniform (prog, name) {};
         void set1ui(GLuint &);
     };
-    class uniform2ui : uniform {
-        uniform2ui(const shaderProgram & prog, std::string & name)
+    class uniform2ui : public uniform {
+    public:
+        uniform2ui(const GLuint & prog, std::string & name)
                 : uniform (prog, name) {};
         void set2ui(GLuint &, GLuint &);
     };
-    class uniform3ui : uniform {
-        uniform3ui(const shaderProgram & prog, std::string & name)
+    class uniform3ui : public uniform {
+    public:
+        uniform3ui(const GLuint & prog, std::string & name)
                 : uniform (prog, name) {};
         void set3ui(GLuint &, GLuint &, GLuint &);
     };
-    class uniform4ui : uniform {
-        uniform4ui(const shaderProgram & prog, std::string & name)
+    class uniform4ui : public uniform {
+    public:
+        uniform4ui(const GLuint & prog, std::string & name)
                 : uniform (prog, name) {};
         void set4ui(GLuint &, GLuint &, GLuint &, GLuint &);
     };
 
-    class uniform1fv : uniform {
-        uniform1fv(const shaderProgram & prog, std::string & name)
+    class uniform1fv : public uniform {
+    public:
+        uniform1fv(const GLuint & prog, std::string & name)
                 : uniform (prog, name) {};
         void set1fv(GLsizei &, const GLfloat *);
     };
-    class uniform2fv : uniform {
-        uniform2fv(const shaderProgram & prog, std::string & name)
+    class uniform2fv : public uniform {
+    public:
+        uniform2fv(const GLuint & prog, std::string & name)
                 : uniform (prog, name) {};
         void set2fv(GLsizei &, const GLfloat *);
     };
-    class uniform3fv : uniform {
-        uniform3fv(const shaderProgram & prog, std::string & name)
+    class uniform3fv : public uniform {
+    public:
+        uniform3fv(const GLuint & prog, std::string & name)
                 : uniform (prog, name) {};
         void set3fv(GLsizei &, const GLfloat *);
     };
-    class uniform4fv : uniform {
-        uniform4fv(const shaderProgram & prog, std::string & name)
+    class uniform4fv : public uniform {
+    public:
+        uniform4fv(const GLuint & prog, std::string & name)
                 : uniform (prog, name) {};
-        void set4iv(GLsizei &, const GLint *);
+        void set4fv(GLsizei &, const GLfloat *);
     };
 
-    class uniform1iv : uniform {
-        uniform1iv(const shaderProgram & prog, std::string & name)
+    class uniform1iv : public uniform {
+    public:
+        uniform1iv(const GLuint & prog, std::string & name)
                 : uniform (prog, name) {};
         void set1iv(GLsizei &, const GLint *);
     };
-    class uniform2iv : uniform {
-        uniform2iv(const shaderProgram & prog, std::string & name)
+    class uniform2iv : public uniform {
+    public:
+        uniform2iv(const GLuint & prog, std::string & name)
                 : uniform (prog, name) {};
         void set2iv(GLsizei &, const GLint *);
     };
-    class uniform3iv : uniform {
-        uniform3iv(const shaderProgram & prog, std::string & name)
+    class uniform3iv : public uniform {
+    public:
+        uniform3iv(const GLuint & prog, std::string & name)
                 : uniform (prog, name) {};
         void set3iv(GLsizei &, const GLint *);
     };
-    class uniform4iv : uniform {
-        uniform4iv(const shaderProgram & prog, std::string & name)
+    class uniform4iv : public uniform {
+    public:
+        uniform4iv(const GLuint & prog, std::string & name)
                 : uniform (prog, name) {};
         void set4iv(GLsizei &, const GLint *);
     };
 
-    class uniform1uiv : uniform {
-        uniform1uiv(const shaderProgram & prog, std::string & name)
+    class uniform1uiv : public uniform {
+    public:
+        uniform1uiv(const GLuint & prog, std::string & name)
                 : uniform (prog, name) {};
         void set1uiv(GLsizei &, const GLuint *);
     };
-    class uniform2uiv : uniform {
-        uniform2uiv(const shaderProgram & prog, std::string & name)
+    class uniform2uiv : public uniform {
+    public:
+        uniform2uiv(const GLuint & prog, std::string & name)
                 : uniform (prog, name) {};
         void set2uiv(GLsizei &, const GLuint *);
     };
-    class uniform3uiv : uniform {
-        uniform3uiv(const shaderProgram & prog, std::string & name)
+    class uniform3uiv : public uniform {
+    public:
+        uniform3uiv(const GLuint & prog, std::string & name)
                 : uniform (prog, name) {};
         void set3uiv(GLsizei &, const GLuint *);
     };
-    class uniform4uiv : uniform {
-        uniform4uiv(const shaderProgram & prog, std::string & name)
+    class uniform4uiv : public uniform {
+    public:
+        uniform4uiv(const GLuint & prog, std::string & name)
                 : uniform (prog, name) {};
         void set4uiv(GLsizei &, const GLuint *);
     };
 
-    class uniformMatrix2fv : uniform {
-        uniformMatrix2fv(const shaderProgram & prog, std::string & name)
+    class uniformMatrix2 : public uniform {
+    public:
+        uniformMatrix2(const GLuint & prog, std::string & name)
                 : uniform (prog, name) {};
-        void setMatrix2fv(GLsizei &, GLboolean &, const GLfloat *);
+        void setMatrix2(GLsizei &, GLboolean &, const GLfloat *);
     };
-    class uniformMatrix3fv : uniform {
-        uniformMatrix3fv(const shaderProgram & prog, std::string & name)
+    class uniformMatrix3 : public uniform {
+    public:
+        uniformMatrix3(const GLuint & prog, std::string & name)
                 : uniform (prog, name) {};
-        void setMatrix3fv(GLsizei &, GLboolean &, const GLfloat *);
+        void setMatrix3(GLsizei &, GLboolean &, const GLfloat *);
     };
-    class uniformMatrix4fv : uniform {
-        uniformMatrix4fv(const shaderProgram & prog, std::string & name)
+    class uniformMatrix4 : public uniform {
+    public:
+        uniformMatrix4(const GLuint & prog, std::string & name)
                 : uniform (prog, name) {};
-        void setMatrix4fv(GLsizei &, GLboolean &, const GLfloat *);
+        void setMatrix4(GLsizei &, GLboolean &, const GLfloat *);
     };
-    class uniformMatrix2x3fv : uniform {
-        uniformMatrix2x3fv(const shaderProgram & prog, std::string & name)
+    class uniformMatrix2x3 : public uniform {
+    public:
+        uniformMatrix2x3(const GLuint & prog, std::string & name)
                 : uniform (prog, name) {};
-        void setMatrix2x3fv(GLsizei &, GLboolean &, const GLfloat *);
+        void setMatrix2x3(GLsizei &, GLboolean &, const GLfloat *);
     };
-    class uniformMatrix3x2fv : uniform {
-        uniformMatrix3x2fv(const shaderProgram & prog, std::string & name)
+    class uniformMatrix3x2 : public uniform {
+    public:
+        uniformMatrix3x2(const GLuint & prog, std::string & name)
                 : uniform (prog, name) {};
-        void setMatrix3x2fv(GLsizei &, GLboolean &, const GLfloat *);
+        void setMatrix3x2(GLsizei &, GLboolean &, const GLfloat *);
     };
-    class uniformMatrix2x4fv : uniform {
-        uniformMatrix2x4fv(const shaderProgram & prog, std::string & name)
+    class uniformMatrix2x4: public uniform {
+    public:
+        uniformMatrix2x4(const GLuint & prog, std::string & name)
                 : uniform (prog, name) {};
-        void setMatrix2x4fv(GLsizei &, GLboolean &, const GLfloat *);
+        void setMatrix2x4(GLsizei &, GLboolean &, const GLfloat *);
     };
-    class uniformMatrix4x2fv : uniform {
-        uniformMatrix4x2fv(const shaderProgram & prog, std::string & name)
+    class uniformMatrix4x2 : public uniform {
+    public:
+        uniformMatrix4x2(const GLuint & prog, std::string & name)
                 : uniform (prog, name) {};
-        void setMatrix4x2fv(GLsizei &, GLboolean &, const GLfloat *);
+        void setMatrix4x2(GLsizei &, GLboolean &, const GLfloat *);
     };
-    class uniformMatrix3x4fv : uniform {
-        uniformMatrix3x4fv(const shaderProgram & prog, std::string & name)
+    class uniformMatrix3x4 : public uniform {
+    public:
+        uniformMatrix3x4(const GLuint & prog, std::string & name)
                 : uniform (prog, name) {};
-        void setMatrix3x4fv(GLsizei &, GLboolean &, const GLfloat *);
+        void setMatrix3x4(GLsizei &, GLboolean &, const GLfloat *);
     };
-    class uniformMatrix4x3fv : uniform {
-        uniformMatrix4x3fv(const shaderProgram & prog, std::string & name)
+    class uniformMatrix4x3 : public uniform {
+    public:
+        uniformMatrix4x3(const GLuint & prog, std::string & name)
                 : uniform (prog, name) {};
-        void setMatrix4x3fv(GLsizei &, GLboolean &, const GLfloat *);
+        void setMatrix4x3(GLsizei &, GLboolean &, const GLfloat *);
     };
 }
 

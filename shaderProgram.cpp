@@ -4,7 +4,7 @@
 
 #include "shaderProgram.h"
 
-std::regex shaderUtils::shaderProgram::uniformFinder = std::regex("uniform (.+?) (.+?);");
+std::regex shaderUtils::shaderProgram::uniformFinder = std::regex("uniform (.+?) (.+?);\\s*//\\s*([a-z]+)");
 
 shaderUtils::shaderProgram::shaderProgram(std::initializer_list<shader> list) {
 
@@ -45,10 +45,10 @@ void shaderUtils::shaderProgram::find_uniforms() {
         source_suffix = s.source_string;
 
         while (std::regex_search(source_suffix, current_match, uniformFinder)) {
-            uniform_list[current_match[2]] = glGetUniformLocation(programRef, (std::string (current_match[2])).c_str());
+            uniform_list[current_match[2]] = shaderUtils::make_uniform(programRef, current_match[2],
+                                                current_match[1].str() + current_match[3].str());
+            std::cout << current_match[2] << current_match[1] << current_match[3] << std::endl;
             source_suffix = current_match.suffix();
         }
     }
-
-    std:: cout << uniform_list.size() << " uniforms were found" << std::endl;
 }
