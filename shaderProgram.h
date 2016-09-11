@@ -31,6 +31,9 @@ namespace shaderUtils {
         std::unordered_map <std::string, GLint> uniform_list;
 
         static std::regex uniformFinder;
+
+        void set_uniform1f(std::string, GLfloat);
+        void set_uniform2f(std::string, GLfloat);
     };
 }
 
