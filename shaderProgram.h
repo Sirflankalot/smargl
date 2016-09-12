@@ -12,6 +12,7 @@
 #include "SDL2/SDL_opengl.h"
 
 #include "shader.h"
+#include <iostream>
 #include "uniform.h"
 #include <unordered_map>
 #include <regex>
@@ -30,7 +31,7 @@ namespace shaderUtils {
 
         std::vector <shader> shader_list;
 
-        std::unordered_map <std::string, shaderUtils::uniform> uniform_list;
+        std::unordered_map <std::string, std::unique_ptr<shaderUtils::uniform>> uniform_list;
 
         static std::regex uniformFinder;
     };

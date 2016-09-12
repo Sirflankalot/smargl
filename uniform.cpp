@@ -4,40 +4,46 @@
 
 #include "uniform.h"
 
-shaderUtils::uniform shaderUtils::make_uniform(const GLuint & prog, std::string name, std::string type) {
-    std::unique_ptr<shaderUtils::uniform> ptr;
+std::unique_ptr<shaderUtils::uniform>
+    shaderUtils::make_uniform(const GLuint & prog, std::string name, std::string type) {
 
-    // TODO implement single-dimension uniforms
-    if      (type.compare("vec2float"))    return shaderUtils::uniform2f(prog, name);
-    else if (type.compare("vec3float"))    return shaderUtils::uniform3f(prog, name);
-    else if (type.compare("vec4float"))    return shaderUtils::uniform4f(prog, name);
-    else if (type.compare("vec2int"))      return shaderUtils::uniform2i(prog, name);
-    else if (type.compare("vec3int"))      return shaderUtils::uniform3i(prog, name);
-    else if (type.compare("vec4int"))      return shaderUtils::uniform4i(prog, name);
-    else if (type.compare("vec2uint"))     return shaderUtils::uniform2ui(prog, name);
-    else if (type.compare("vec3uint"))     return shaderUtils::uniform3ui(prog, name);
-    else if (type.compare("vec4uint"))     return shaderUtils::uniform4ui(prog, name);
+    // TODO implement single-dimension *v functions (whatever the hell those do...)
+    if      (!type.compare("vec2float"))     return std::make_unique<shaderUtils::uniform2f>(prog, name);
+    else if (!type.compare("vec3float"))     return std::make_unique<shaderUtils::uniform3f>(prog, name);
+    else if (!type.compare("vec4float"))     return std::make_unique<shaderUtils::uniform4f>(prog, name);
+    else if (!type.compare("vec2int"))       return std::make_unique<shaderUtils::uniform2i>(prog, name);
+    else if (!type.compare("vec3int"))       return std::make_unique<shaderUtils::uniform3i>(prog, name);
+    else if (!type.compare("vec4int"))       return std::make_unique<shaderUtils::uniform4i>(prog, name);
+    else if (!type.compare("vec2uint"))      return std::make_unique<shaderUtils::uniform2ui>(prog, name);
+    else if (!type.compare("vec3uint"))      return std::make_unique<shaderUtils::uniform3ui>(prog, name);
+    else if (!type.compare("vec4uint"))      return std::make_unique<shaderUtils::uniform4ui>(prog, name);
+
+    // Implementing single-dimension uniforms...
+    else if (!type.compare("float"))         return std::make_unique<shaderUtils::uniform1f>(prog, name);
+    else if (!type.compare("int"))           return std::make_unique<shaderUtils::uniform1i>(prog, name);
+    else if (!type.compare("uint"))          return std::make_unique<shaderUtils::uniform1ui>(prog, name);
+
     // Now I dont know if these types are really right...
-    else if (type.compare("vec2vfloat"))    return shaderUtils::uniform2fv(prog, name);
-    else if (type.compare("vec3vfloat"))    return shaderUtils::uniform3fv(prog, name);
-    else if (type.compare("vec4vfloat"))    return shaderUtils::uniform4fv(prog, name);
-    else if (type.compare("vec2vint"))      return shaderUtils::uniform2iv(prog, name);
-    else if (type.compare("vec3vint"))      return shaderUtils::uniform3iv(prog, name);
-    else if (type.compare("vec4vint"))      return shaderUtils::uniform4iv(prog, name);
-    else if (type.compare("vec2vuint"))     return shaderUtils::uniform2uiv(prog, name);
-    else if (type.compare("vec3vuint"))     return shaderUtils::uniform3uiv(prog, name);
-    else if (type.compare("vec4vuint"))     return shaderUtils::uniform4uiv(prog, name);
+    else if (!type.compare("vec2vfloat"))    return std::make_unique<shaderUtils::uniform2fv>(prog, name);
+    else if (!type.compare("vec3vfloat"))    return std::make_unique<shaderUtils::uniform3fv>(prog, name);
+    else if (!type.compare("vec4vfloat"))    return std::make_unique<shaderUtils::uniform4fv>(prog, name);
+    else if (!type.compare("vec2vint"))      return std::make_unique<shaderUtils::uniform2iv>(prog, name);
+    else if (!type.compare("vec3vint"))      return std::make_unique<shaderUtils::uniform3iv>(prog, name);
+    else if (!type.compare("vec4vint"))      return std::make_unique<shaderUtils::uniform4iv>(prog, name);
+    else if (!type.compare("vec2vuint"))     return std::make_unique<shaderUtils::uniform2uiv>(prog, name);
+    else if (!type.compare("vec3vuint"))     return std::make_unique<shaderUtils::uniform3uiv>(prog, name);
+    else if (!type.compare("vec4vuint"))     return std::make_unique<shaderUtils::uniform4uiv>(prog, name);
 
     // Or if these are right...
-    else if (type.compare("mat2float"))    return shaderUtils::uniformMatrix2(prog, name);
-    else if (type.compare("mat3float"))    return shaderUtils::uniformMatrix3(prog, name);
-    else if (type.compare("mat4float"))    return shaderUtils::uniformMatrix4(prog, name);
-    else if (type.compare("mat2x3float"))  return shaderUtils::uniformMatrix2x3(prog, name);
-    else if (type.compare("mat3x2float"))  return shaderUtils::uniformMatrix3x2(prog, name);
-    else if (type.compare("mat2x4float"))  return shaderUtils::uniformMatrix2x4(prog, name);
-    else if (type.compare("mat4x2float"))  return shaderUtils::uniformMatrix4x2(prog, name);
-    else if (type.compare("mat3x4float"))  return shaderUtils::uniformMatrix3x4(prog, name);
-    else if (type.compare("mat4x3 float")) return shaderUtils::uniformMatrix4x3(prog, name);
+    else if (!type.compare("mat2float"))    return std::make_unique<shaderUtils::uniformMatrix2>(prog, name);
+    else if (!type.compare("mat3float"))    return std::make_unique<shaderUtils::uniformMatrix3>(prog, name);
+    else if (!type.compare("mat4float"))    return std::make_unique<shaderUtils::uniformMatrix4>(prog, name);
+    else if (!type.compare("mat2x3float"))  return std::make_unique<shaderUtils::uniformMatrix2x3>(prog, name);
+    else if (!type.compare("mat3x2float"))  return std::make_unique<shaderUtils::uniformMatrix3x2>(prog, name);
+    else if (!type.compare("mat2x4float"))  return std::make_unique<shaderUtils::uniformMatrix2x4>(prog, name);
+    else if (!type.compare("mat4x2float"))  return std::make_unique<shaderUtils::uniformMatrix4x2>(prog, name);
+    else if (!type.compare("mat3x4float"))  return std::make_unique<shaderUtils::uniformMatrix3x4>(prog, name);
+    else if (!type.compare("mat4x3float"))  return std::make_unique<shaderUtils::uniformMatrix4x3>(prog, name);
 
     else throw std::invalid_argument("That's not a valid uniform type...");
 
@@ -51,7 +57,12 @@ shaderUtils::uniform::~uniform() {
     // TODO Make sure that there's no specific uniform cleanup function, if so delete this method
 }
 
-void shaderUtils::uniform1f::set1f(GLfloat & v0) {
+shaderUtils::uniform::uniform() {
+    // This method only exists so that I can create hashmaps mapping to uniform objects
+}
+
+void shaderUtils::uniform1f::set1f(GLfloat v0) {
+    std::cout << "Was set to " << v0 << std::endl;
     glUniform1f(address, v0);
 }
 

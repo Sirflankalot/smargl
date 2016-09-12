@@ -10,7 +10,6 @@
 #include <iostream>
 #include <vector>
 #include <regex>
-#include <tuple>
 
 #ifndef ISOMETRICENGINE_SHADERU_H
 #define ISOMETRICENGINE_SHADER_H

@@ -5,26 +5,28 @@
 #ifndef ISOMETRICENGINE_UNIFORM_H
 #define ISOMETRICENGINE_UNIFORM_H
 
-#include "shaderProgram.h"
+#define GLEW_STATIC
+#include <GL/glew.h>
+
+#include "SDL2/SDL.h"
+#include "SDL2/SDL_opengl.h"
 
 #include <memory>
 #include <stdexcept>
+#include <iostream>
 
 namespace shaderUtils {
-
-    // Factory method to make uniforms
-    // TODO Implement (also, the return type shouldn't be void)
-    //void make_uniform(const shaderProgram &, std::string, std::string) {};
 
     class uniform {
     public:
         uniform(const GLuint &, std::string &);
+        uniform();
 
         ~uniform();
 
         GLint address;
 
-        virtual void set1f(GLfloat &) {};
+        virtual void set1f(GLfloat) {};
 
         virtual void set2f(GLfloat &, GLfloat &) { err(); };
 
@@ -98,7 +100,7 @@ namespace shaderUtils {
         }
     };
 
-    uniform make_uniform(const GLuint &, std::string, std::string);
+    std::unique_ptr<uniform> make_uniform(const GLuint &, std::string, std::string);
 
     // And now onto the classses...
 
@@ -106,7 +108,7 @@ namespace shaderUtils {
     public:
         uniform1f(const GLuint & prog, std::string & name)
                 : uniform (prog, name) {};
-        void set1f(GLfloat &);
+        void set1f(GLfloat);
     };
     class uniform2f : public uniform {
     public:

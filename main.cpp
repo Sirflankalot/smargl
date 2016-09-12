@@ -45,8 +45,10 @@ int main() {
     shaderUtils::shaderProgram prog({vertexShader, fragmentShader});
 
     glBindFragDataLocation(prog.programRef, 0, "outColor");
-    glLinkProgram(prog.programRef);
-    glUseProgram(prog.programRef);
+
+    prog.activate();
+
+    prog.uniform_list["a"]->set1f(1.0f);
 
     //retrieve a reference to the position input, which is required by the vertex shader
     GLint posAttrib = glGetAttribLocation(prog.programRef, "position");
