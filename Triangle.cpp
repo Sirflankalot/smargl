@@ -4,9 +4,27 @@
 
 #include "Triangle.h"
 
+GLuint Triangle::vao;
+GLuint Triangle::vbo;
+GLuint Triangle::ebo;
 
-//shaderUtils::shader Triangle::vert = shaderUtils::shader(GL_VERTEX_SHADER, "../../res/basic.vx");
-//shaderUtils::shader Triangle::vert(GL_VERTEX_SHADER, "../../res/basic.vx");
+shaderUtils::shader Triangle::v, Triangle::f;
+shaderUtils::shaderProgram Triangle::p;
+
+void Triangle::initStaticVars() {
+
+    v = shaderUtils::shader(GL_VERTEX_SHADER, "../../res/basic.vx");
+    f = shaderUtils::shader(GL_FRAGMENT_SHADER, "../../res/basic.fx");
+    shaderUtils::shader Triangle::p({v, f});
+
+    glGenVertexArrays(1, &vao);
+    glGenBuffers(1, &vbo);
+    glGenBuffers(1, &ebo);
+
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ebo);
+    glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(elements), elements, GL_STATIC_DRAW);
+
+}
 
 GLint Triangle::getVAO() {
     return 0;

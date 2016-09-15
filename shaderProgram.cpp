@@ -10,6 +10,8 @@ std::regex shaderUtils::shaderProgram::uniformFinder =
 
 shaderUtils::shaderProgram::shaderProgram(std::initializer_list<shader> list) {
 
+    programRef = glCreateProgram();
+
     shader_list = std::vector<shader>(list);
 
     for (shader s : shader_list) {
@@ -54,4 +56,8 @@ void shaderUtils::shaderProgram::find_uniforms() {
             source_suffix = current_match.suffix();
         }
     }
+}
+
+shaderUtils::shaderProgram::shaderProgram() {
+
 }

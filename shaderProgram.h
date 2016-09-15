@@ -19,6 +19,7 @@
 namespace shaderUtils {
     class shaderProgram {
     public:
+        shaderProgram();
         shaderProgram(std::initializer_list <std::string> list);
         shaderProgram(std::initializer_list <shader> list);
         ~shaderProgram();
@@ -26,7 +27,7 @@ namespace shaderUtils {
         void activate();
         void find_uniforms();
 
-        const GLuint programRef = glCreateProgram();
+        GLuint programRef;
 
         std::vector <shader> shader_list;
 

@@ -15,6 +15,7 @@ namespace shaderUtils {
     class shader {
 
     public:
+        shader();
         shader(const GLenum& type, const std::string& shaderpath);
         ~shader();
 

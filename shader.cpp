@@ -25,3 +25,7 @@ shaderUtils::shader::shader(const GLenum &type, const std::string &shaderpath) {
 shaderUtils::shader::~shader() {
     glDeleteShader(shaderRef);
 }
+
+shaderUtils::shader::shader() {
+
+}

@@ -44,7 +44,7 @@ int main() {
 
     shaderUtils::shaderProgram prog({vertexShader, fragmentShader});
 
-    glBindFragDataLocation(prog.programRef, 0, "outColor");
+    // glBindFragDataLocation(prog.programRef, 0, "outColor");
 
     prog.activate();
 
