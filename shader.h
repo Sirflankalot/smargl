@@ -6,12 +6,8 @@
 
 #include <fstream>
 #include <cassert>
-#include <list>
-#include <iostream>
-#include <vector>
-#include <regex>
 
-#ifndef ISOMETRICENGINE_SHADERU_H
+#ifndef ISOMETRICENGINE_SHADER_H
 #define ISOMETRICENGINE_SHADER_H
 
 namespace shaderUtils {

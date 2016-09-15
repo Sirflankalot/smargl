@@ -12,7 +12,6 @@
 #include "SDL2/SDL_opengl.h"
 
 #include "shader.h"
-#include <iostream>
 #include "uniform.h"
 #include <unordered_map>
 #include <regex>

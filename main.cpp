@@ -59,8 +59,7 @@ int main() {
     SDL_Event event;
     while (true) {
         if (SDL_PollEvent(&event)) {
-            bool escape_pressed = event.type == SDL_KEYUP &&
-                                  (event.key.keysym.sym == SDLK_ESCAPE);
+            bool escape_pressed = event.type == SDL_KEYUP && (event.key.keysym.sym == SDLK_ESCAPE);
             if (event.type == SDL_QUIT || escape_pressed) break;
         }
         glClearColor(0.0f, 0.0f, 0.0f, 1.0f);

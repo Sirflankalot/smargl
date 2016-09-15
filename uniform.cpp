@@ -62,7 +62,6 @@ shaderUtils::uniform::uniform() {
 }
 
 void shaderUtils::uniform1f::set1f(GLfloat v0) {
-    std::cout << "Was set to " << v0 << std::endl;
     glUniform1f(address, v0);
 }
 
