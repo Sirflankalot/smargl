@@ -15,7 +15,7 @@ void Triangle::initStaticVars() {
 
     v = shaderUtils::shader(GL_VERTEX_SHADER, "../../res/basic.vx");
     f = shaderUtils::shader(GL_FRAGMENT_SHADER, "../../res/basic.fx");
-    shaderUtils::shader Triangle::p({v, f});
+    Triangle::p = shaderUtils::shaderProgram({v, f});
 
     glGenVertexArrays(1, &vao);
     glGenBuffers(1, &vbo);

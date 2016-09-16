@@ -24,6 +24,11 @@ namespace shaderUtils {
         shaderProgram(std::initializer_list <shader> list);
         ~shaderProgram();
 
+        shaderProgram(const shaderProgram&) = delete;
+        shaderProgram(shaderProgram&&)      = default;
+        shaderProgram& operator=(const shaderProgram&) = delete;
+        shaderProgram& operator=(shaderProgram&&) = default;
+
         void activate();
         void find_uniforms();
 
