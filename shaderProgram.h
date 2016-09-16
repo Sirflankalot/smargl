@@ -35,6 +35,7 @@ namespace shaderUtils {
         GLuint programRef;
 
         std::vector <shader> shader_list;
+        std::vector <std::string> attributes;
 
         std::unordered_map <std::string, std::unique_ptr<shaderUtils::uniform>> uniform_list;
 

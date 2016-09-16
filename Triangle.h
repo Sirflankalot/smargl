@@ -8,31 +8,29 @@
 #include "Drawable.h"
 
 #include "memory"
+#include "array"
+#include "iostream"
 
 class Triangle : Drawable {
 public:
     Triangle();
     ~Triangle();
 
-    static bool hasInitialized;
-
     static shaderUtils::shader v, f;
     static shaderUtils::shaderProgram p;
+
+    static GLfloat vertices[6];
 
     static GLuint vao;
     static GLuint vbo;
     static GLuint ebo;
+    static GLint posAttrib;
 
     void draw();
     GLuint elements[3] = {0, 1, 2};
 
-    shaderUtils::shaderProgram getShaderProgram();
-    GLint getVAO();
-    void getData();
-    void getVBO();
-    void getEBO();
-
     void initStaticVars();
+    void destroyStaticVars();
 };
 
 #endif //SMARGL_TRIANGLE_H

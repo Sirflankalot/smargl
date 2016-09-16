@@ -5,6 +5,7 @@
 #include "SDL2/SDL_opengl.h"
 
 #include "shaderProgram.h"
+#include "Triangle.h"
 
 //Vertices for the triangle we're about to draw
 const GLfloat vertices[] = {0.0f, 0.5f, .5f, -.5f, -.5f, -.5f};
@@ -26,34 +27,17 @@ int main() {
     glewExperimental = GL_TRUE;
     glewInit(); glGetError(); // Calling glewInit causes a useless error 1280
 
-    //Create a VAO referenced by "vao," and bind it as active
-    GLuint vao;
-    glGenVertexArrays(1, &vao);
-    glBindVertexArray(vao);
-
-    //Create a VBO
-    GLuint vbo;
-    glGenBuffers(1, &vbo);
-
-    //Bind vbo as the active array buffer, and upload the data stored in vertices[]
-    glBindBuffer(GL_ARRAY_BUFFER, vbo);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
-
     shaderUtils::shader vertexShader(GL_VERTEX_SHADER, "../../res/basic.vx");
     shaderUtils::shader fragmentShader(GL_FRAGMENT_SHADER, "../../res/basic.fx");
 
     shaderUtils::shaderProgram prog({vertexShader, fragmentShader});
 
-    // glBindFragDataLocation(prog.programRef, 0, "outColor");
-
     prog.activate();
 
     prog.uniform_list["a"]->set1f(1.0f);
 
-    //retrieve a reference to the position input, which is required by the vertex shader
-    GLint posAttrib = glGetAttribLocation(prog.programRef, "position");
-    glEnableVertexAttribArray(posAttrib);
-    glVertexAttribPointer(posAttrib, 2, GL_FLOAT, GL_FALSE, 0, 0);
+    Triangle t = Triangle();
+    t.initStaticVars();
 
     //Event loop
     SDL_Event event;
@@ -65,16 +49,17 @@ int main() {
         glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT);
 
-        glDrawArrays(GL_TRIANGLES, 0, 3);
+        //glDrawArrays(GL_TRIANGLES, 0, 3);
+        t.draw();
 
         SDL_GL_SwapWindow(window);
     }
 
     //Cleanup code
-
+/*
     glDeleteBuffers(1, &vbo);
     glDeleteVertexArrays(1, &vao);
-
+*/
     SDL_GL_DeleteContext(context);
     SDL_Quit();
 

@@ -23,13 +23,8 @@ public:
     virtual void draw() = 0;
 
     // TODO implement textured drawables
-
-    virtual shaderUtils::shaderProgram getShaderProgram() = 0;
-    virtual GLint getVAO() = 0;
-    virtual void getData() = 0;
-    virtual void getVBO() = 0;
-    virtual void getEBO() = 0;
-
+    virtual void initStaticVars() = 0;
+    virtual void destroyStaticVars() = 0;
 };
 
 
