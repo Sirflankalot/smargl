@@ -49,7 +49,6 @@ int main() {
         glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT);
 
-        //glDrawArrays(GL_TRIANGLES, 0, 3);
         t.draw();
 
         SDL_GL_SwapWindow(window);

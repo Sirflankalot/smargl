@@ -28,9 +28,9 @@ void Triangle::initStaticVars() {
     Triangle::f = shaderUtils::shader(GL_FRAGMENT_SHADER, "../../res/basic.fx");
     Triangle::p = shaderUtils::shaderProgram({v, f});
     Triangle::p.activate();
-    Triangle::p.uniform_list["a"]->set1f(1.0f);
+    Triangle::p.uniform_list["a"]->set1f(.5f);
 
-    posAttrib = glGetAttribLocation(Triangle::p.programRef, "position");
+    GLint posAttrib = glGetAttribLocation(Triangle::p.programRef, "position");
     glEnableVertexAttribArray(Triangle::posAttrib);
     glVertexAttribPointer(Triangle::posAttrib, 2, GL_FLOAT, GL_FALSE, 0, 0);
 }
