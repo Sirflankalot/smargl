@@ -27,14 +27,14 @@ int main() {
     glewExperimental = GL_TRUE;
     glewInit(); glGetError(); // Calling glewInit causes a useless error 1280
 
-    shaderUtils::shader vertexShader(GL_VERTEX_SHADER, "../../res/basic.vx");
-    shaderUtils::shader fragmentShader(GL_FRAGMENT_SHADER, "../../res/basic.fx");
+    // shaderUtils::shader vertexShader(GL_VERTEX_SHADER, "../../res/basic.vx");
+    // shaderUtils::shader fragmentShader(GL_FRAGMENT_SHADER, "../../res/basic.fx");
 
-    shaderUtils::shaderProgram prog({vertexShader, fragmentShader});
+    // shaderUtils::shaderProgram prog({vertexShader, fragmentShader});
 
-    prog.activate();
+    // prog.activate();
 
-    prog.uniform_list["a"]->set1f(1.0f);
+    // prog.uniform_list["a"]->set1f(1.0f);
 
     Triangle t = Triangle();
     t.initStaticVars();

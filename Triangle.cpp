@@ -24,9 +24,9 @@ void Triangle::initStaticVars() {
     glBindBuffer(GL_ARRAY_BUFFER, Triangle::vbo);
     glBufferData(GL_ARRAY_BUFFER, sizeof(Triangle::vertices), Triangle::vertices, GL_STATIC_DRAW);
 
-    Triangle::v = shaderUtils::shader(GL_VERTEX_SHADER, "../../res/basic.vx");
-    Triangle::f = shaderUtils::shader(GL_FRAGMENT_SHADER, "../../res/basic.fx");
-    Triangle::p = shaderUtils::shaderProgram({v, f});
+    Triangle::v = shaderUtils::shader(GL_VERTEX_SHADER, "res/basic.vx");
+    Triangle::f = shaderUtils::shader(GL_FRAGMENT_SHADER, "res/basic.fx");
+    Triangle::p = shaderUtils::shaderProgram({std::move(v), std::move(f)});
     Triangle::p.activate();
     Triangle::p.uniform_list["a"]->set1f(.5f);
 

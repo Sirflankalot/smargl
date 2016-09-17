@@ -25,9 +25,24 @@ namespace shaderUtils {
         ~shaderProgram();
 
         shaderProgram(const shaderProgram&) = delete;
-        shaderProgram(shaderProgram&&)      = default;
+        shaderProgram(shaderProgram&& sp) :
+            programRef(sp.programRef),
+            shader_list(std::move(sp.shader_list)),
+            attributes(std::move(sp.attributes)),
+            uniform_list(std::move(sp.uniform_list))
+        {
+            sp.programRef = 0;
+        };
         shaderProgram& operator=(const shaderProgram&) = delete;
-        shaderProgram& operator=(shaderProgram&&) = default;
+        shaderProgram& operator=(shaderProgram&& sp) {
+            programRef   = sp.programRef;
+            shader_list  = std::move(sp.shader_list);
+            attributes   = std::move(sp.attributes);
+            uniform_list = std::move(sp.uniform_list);
+            sp.programRef = 0;
+
+            return *this;
+        };
 
         void activate();
         void find_uniforms();

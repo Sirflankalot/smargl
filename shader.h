@@ -19,6 +19,23 @@ namespace shaderUtils {
         shader(const GLenum& type, const std::string& shaderpath);
         ~shader();
 
+        shader(const shader&) = delete;
+		shader(shader&& s) noexcept :
+		    shaderRef(s.shaderRef),
+		    shaderType(s.shaderType),
+		    source_string(std::move(s.source_string)) {
+			s.shaderRef = 0;
+		};
+		shader& operator=(const shader&) = delete;
+		shader& operator=(shader&& s) noexcept  {
+			shaderRef = s.shaderRef;
+			shaderType = s.shaderType;
+			source_string = std::move(s.source_string);
+			s.shaderRef = 0;
+
+			return *this;
+		}
+
         GLuint shaderRef;
         GLenum shaderType;
 
